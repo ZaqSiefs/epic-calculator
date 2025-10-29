@@ -264,6 +264,11 @@ public class Display extends JFrame implements ActionListener{
 		else if (e.getSource() == b9) {
 			command.append("9");
 		}
+		else if (e.getSource() == bDot) {
+			if (!command.toString().contains(".")) {
+				command.append(".");
+			}
+		}
 
 		System.out.println(command);
 	}
