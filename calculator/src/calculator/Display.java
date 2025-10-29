@@ -22,47 +22,49 @@ public class Display extends JFrame implements ActionListener{
 	private static final int TOTAL_BUTTONS = 35;
 	
 	// Prefix "b" means "button"
-	JButton bRad;
-	JButton bDeg;
-	JButton bFact;
-	JButton bOpen;
-	JButton bClose;
-	JButton bParen;
-	JButton bCe;
-	
-	JButton bInv;
-	JButton bSin;
-	JButton bLn;
-	JButton b7;
-	JButton b8;
-	JButton b9;
-	JButton bDiv;
-	
-	JButton bPi;
-	JButton bCos;
-	JButton bLog;
-	JButton b4;
-	JButton b5;
-	JButton b6;
-	JButton bTimes;
-	
-	JButton bE;
-	JButton bTan;
-	JButton bSqrt;
-	JButton b1;
-	JButton b2;
-	JButton b3;
-	JButton bMinus;
-	
-	JButton bAns;
-	JButton bExp;
-	JButton bPwr;
-	JButton b0;
-	JButton bDot;
-	JButton bEquals;
-	JButton bPlus;
+	final JButton bRad;
+	final JButton bDeg;
+	final JButton bFact;
+	final JButton bOpen;
+	final JButton bClose;
+	final JButton bParen;
+	final JButton bCe;
+
+	final JButton bInv;
+	final JButton bSin;
+	final JButton bLn;
+	final JButton b7;
+	final JButton b8;
+	final JButton b9;
+	final JButton bDiv;
+
+	final JButton bPi;
+	final JButton bCos;
+	final JButton bLog;
+	final JButton b4;
+	final JButton b5;
+	final JButton b6;
+	final JButton bTimes;
+
+	final JButton bE;
+	final JButton bTan;
+	final JButton bSqrt;
+	final JButton b1;
+	final JButton b2;
+	final JButton b3;
+	final JButton bMinus;
+
+	final JButton bAns;
+	final JButton bExp;
+	final JButton bPwr;
+	final JButton b0;
+	final JButton bDot;
+	final JButton bEquals;
+	final JButton bPlus;
 	
 	JPanel numberPanel;
+	
+	StringBuilder command = new StringBuilder();
 	
 	
 	Display() {
@@ -232,8 +234,37 @@ public class Display extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == b7) {
-			System.out.println(7);
+		if (e.getSource() == b0) {
+			command.append("0");
 		}
+		else if (e.getSource() == b1) {
+			command.append("1");
+		}
+		else if (e.getSource() == b2) {
+			command.append("2");
+		}
+		else if (e.getSource() == b3) {
+			command.append("3");
+		}
+		else if (e.getSource() == b4) {
+			command.append("4");
+		}
+		else if (e.getSource() == b5) {
+			command.append("5");
+		}
+		else if (e.getSource() == b6) {
+			command.append("6");
+		}
+		else if (e.getSource() == b7) {
+			command.append("7");
+		}
+		else if (e.getSource() == b8) {
+			command.append("8");
+		}
+		else if (e.getSource() == b9) {
+			command.append("9");
+		}
+
+		System.out.println(command);
 	}
 }
