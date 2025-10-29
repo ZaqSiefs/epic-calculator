@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -61,6 +62,8 @@ public class Display extends JFrame implements ActionListener{
 	JButton bEquals;
 	JButton bPlus;
 	
+	JPanel numberPanel;
+	
 	
 	Display() {
 		
@@ -81,10 +84,10 @@ public class Display extends JFrame implements ActionListener{
 			e.printStackTrace();
 		}
 
-      //=======================================================
+        //=======================================================
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1000, 500);
-		this.setLayout(new GridLayout(5, 7, 5, 5));
+//		this.setLayout(new GridLayout(5, 7, 5, 5));
 		
 		//=======================================================
 		bRad 	= new JButton("Rad");
@@ -129,53 +132,108 @@ public class Display extends JFrame implements ActionListener{
 		
 		//=======================================================
 		
-		this.add(bRad); 	
-		this.add(bDeg); 	
-		this.add(bFact); 	
-		this.add(bOpen); 	
-		this.add(bClose); 	
-		this.add(bParen); 	
-		this.add(bCe); 	
-     
-		this.add(bInv); 	
-		this.add(bSin); 	
-		this.add(bLn);		
-		this.add(b7);		
-		this.add(b8);		
-		this.add(b9);	
-		this.add(bDiv);
-  
-		this.add(bPi);		
-		this.add(bCos);	
-		this.add(bLog);	
-		this.add(b4);		
-		this.add(b5);		
-		this.add(b6);		
-		this.add(bTimes);	
-  
-		this.add(bE);		
-		this.add(bTan);	
-		this.add(bSqrt);	
-		this.add(b1);		
-		this.add(b2);		
-		this.add(b3);		
-		this.add(bMinus); 	
-    
-		this.add(bAns);	
-		this.add(bExp);	
-		this.add(bPwr);	
-		this.add(b0);		
-		this.add(bDot);	
-		this.add(bEquals); 
-		this.add(bPlus);	
+		bRad.addActionListener(this);
+		bDeg.addActionListener(this); 	
+		bFact.addActionListener(this); 	
+		bOpen.addActionListener(this); 	
+		bClose.addActionListener(this); 	
+		bParen.addActionListener(this); 	
+		bCe.addActionListener(this); 	
+		
+		bInv.addActionListener(this); 	
+		bSin.addActionListener(this); 	
+		bLn.addActionListener(this);		
+		b7.addActionListener(this);		
+		b8.addActionListener(this);		
+		b9.addActionListener(this);		
+		bDiv.addActionListener(this);	
+		
+		bPi.addActionListener(this);		
+		bCos.addActionListener(this);	
+		bLog.addActionListener(this);	
+		b4.addActionListener(this);		
+		b5.addActionListener(this);		
+		b6.addActionListener(this);		
+		bTimes.addActionListener(this);	
+		
+		bE.addActionListener(this);		
+		bTan.addActionListener(this);	
+		bSqrt.addActionListener(this);	
+		b1.addActionListener(this);		
+		b2.addActionListener(this);		
+		b3.addActionListener(this);		
+		bMinus.addActionListener(this); 	
+		
+		bAns.addActionListener(this);	
+		bExp.addActionListener(this);	
+		bPwr.addActionListener(this);	
+		b0.addActionListener(this);		
+		bDot.addActionListener(this);	
+		bEquals.addActionListener(this); 
+		bPlus.addActionListener(this); 	
 		
 		//=======================================================
+		
+		numberPanel = new JPanel(new GridLayout(4, 3));
+		
+		numberPanel.add(b7);		
+		numberPanel.add(b8);		
+		numberPanel.add(b9);	
+		
+		numberPanel.add(b4);		
+		numberPanel.add(b5);		
+		numberPanel.add(b6);		
+		
+		numberPanel.add(b1);		
+		numberPanel.add(b2);		
+		numberPanel.add(b3);	
+		
+		numberPanel.add(b0);	
+		numberPanel.add(bDot);	
+		numberPanel.add(bEquals);
+		
+//		.add(bPlus);	
+//		.add(bDiv);
+//		.add(bTimes);	
+//		.add(bMinus); 
+		
+//		this.add(bRad); 	
+//		this.add(bDeg); 	
+//		this.add(bFact); 	
+//		this.add(bOpen); 	
+//		this.add(bClose); 	
+//		this.add(bParen); 	
+//		this.add(bCe); 	
+//     
+//		this.add(bInv); 	
+//		this.add(bSin); 	
+//		this.add(bLn);		
+//
+//		this.add(bPi);		
+//		this.add(bCos);	
+//		this.add(bLog);	
+//  
+//		this.add(bE);		
+//		this.add(bTan);	
+//		this.add(bSqrt);		
+//    
+//		this.add(bAns);	
+//		this.add(bExp);	
+//		this.add(bPwr);	
+	
+
+
+		
+		//=======================================================
+		this.add(numberPanel);
 		
 		this.setVisible(true);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		if (e.getSource() == b7) {
+			System.out.println(7);
+		}
 	}
 }
