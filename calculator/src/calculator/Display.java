@@ -27,7 +27,7 @@ public class Display extends JFrame implements ActionListener{
 	final JButton bFact;
 	final JButton bOpen;
 	final JButton bClose;
-	final JButton bParen;
+	final JButton bPercent;
 	final JButton bCe;
 
 	final JButton bInv;
@@ -62,9 +62,12 @@ public class Display extends JFrame implements ActionListener{
 	final JButton bEquals;
 	final JButton bPlus;
 	
-	JPanel numberPanel;
+	JPanel centerColumn;
+	JPanel rightColumn;
+	
 	
 	StringBuilder command = new StringBuilder();
+	
 	
 	
 	Display() {
@@ -89,7 +92,7 @@ public class Display extends JFrame implements ActionListener{
         //=======================================================
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1000, 500);
-//		this.setLayout(new GridLayout(5, 7, 5, 5));
+		this.setLayout(new GridLayout(1, 2, 1, 1));
 		
 		//=======================================================
 		bRad 	= new JButton("Rad");
@@ -97,7 +100,7 @@ public class Display extends JFrame implements ActionListener{
 		bFact 	= new JButton("x!");
 		bOpen 	= new JButton("(");
 		bClose 	= new JButton(")");
-		bParen 	= new JButton("%");
+		bPercent= new JButton("%");
 		bCe 	= new JButton("CE");
 		
 		bInv 	= new JButton("Inv");
@@ -139,7 +142,7 @@ public class Display extends JFrame implements ActionListener{
 		bFact.addActionListener(this); 	
 		bOpen.addActionListener(this); 	
 		bClose.addActionListener(this); 	
-		bParen.addActionListener(this); 	
+		bPercent.addActionListener(this); 	
 		bCe.addActionListener(this); 	
 		
 		bInv.addActionListener(this); 	
@@ -176,36 +179,41 @@ public class Display extends JFrame implements ActionListener{
 		
 		//=======================================================
 		
-		numberPanel = new JPanel(new GridLayout(4, 3));
+		centerColumn = new JPanel(new GridLayout(5, 3, 1, 1));
 		
-		numberPanel.add(b7);		
-		numberPanel.add(b8);		
-		numberPanel.add(b9);	
+		centerColumn.add(bOpen); 	
+		centerColumn.add(bClose); 	
+		centerColumn.add(bPercent);
 		
-		numberPanel.add(b4);		
-		numberPanel.add(b5);		
-		numberPanel.add(b6);		
+		centerColumn.add(b7);		
+		centerColumn.add(b8);		
+		centerColumn.add(b9);	
 		
-		numberPanel.add(b1);		
-		numberPanel.add(b2);		
-		numberPanel.add(b3);	
+		centerColumn.add(b4);		
+		centerColumn.add(b5);		
+		centerColumn.add(b6);		
 		
-		numberPanel.add(b0);	
-		numberPanel.add(bDot);	
-		numberPanel.add(bEquals);
+		centerColumn.add(b1);		
+		centerColumn.add(b2);		
+		centerColumn.add(b3);	
 		
-//		.add(bPlus);	
-//		.add(bDiv);
-//		.add(bTimes);	
-//		.add(bMinus); 
+		centerColumn.add(b0);	
+		centerColumn.add(bDot);	
+		centerColumn.add(bEquals);
+		
+		rightColumn = new JPanel(new GridLayout(5, 1, 1, 1));
+		
+		rightColumn.add(bCe); 	
+		rightColumn.add(bDiv);
+		rightColumn.add(bTimes);	
+		rightColumn.add(bMinus); 
+		rightColumn.add(bPlus);	
 		
 //		this.add(bRad); 	
 //		this.add(bDeg); 	
 //		this.add(bFact); 	
-//		this.add(bOpen); 	
-//		this.add(bClose); 	
-//		this.add(bParen); 	
-//		this.add(bCe); 	
+ 	
+
 //     
 //		this.add(bInv); 	
 //		this.add(bSin); 	
@@ -227,7 +235,10 @@ public class Display extends JFrame implements ActionListener{
 
 		
 		//=======================================================
-		this.add(numberPanel);
+		
+		this.add(centerColumn);
+		this.add(rightColumn);
+		
 		
 		this.setVisible(true);
 	}
@@ -268,6 +279,16 @@ public class Display extends JFrame implements ActionListener{
 			if (!command.toString().contains(".")) {
 				command.append(".");
 			}
+		}
+		else if (e.getSource() == bOpen) {
+			command.append("(");
+		}
+		else if (e.getSource() == bClose) {
+			command.append(")");
+		}
+		else if (e.getSource() == bEquals) {
+			Calculator.parse(command);
+			command.setLength(0);
 		}
 
 		System.out.println(command);
