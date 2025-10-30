@@ -4,11 +4,9 @@ import java.math.BigDecimal;
 import java.util.Stack;
 
 public class Calculator {
-	BigDecimal state;
+	private static BigDecimal state = new BigDecimal("0");
 	
-	Calculator() {
-		this.state = new BigDecimal("0");
-	}
+	Calculator() {}
 
 	public static void parse(StringBuilder command) {
 		// TODO parse the command
@@ -18,8 +16,23 @@ public class Calculator {
 		}
 		System.out.println("Valid Parentheses");
 		
+		while (!command.toString().isBlank()) {
+			if (command.charAt(0) <= 57 && command.charAt(0) >= 48) {
+				int length = 0;
+				while(command.toString().length() > length && command.charAt(length) <= 57 && command.charAt(length) >= 48) {
+					length++;
+					}
+				
+				Calculator.setState(new BigDecimal(command.substring(0, length)));
+				command.delete(0, length + 1);
+			}
+		}
 	}
 	
+	private static void setState(BigDecimal state) {
+		Calculator.state = state;
+	}
+
 	private static boolean validParentheses(StringBuilder command) {
 		// TODO Auto-generated method stub
 		if (command.length() == 0) {
@@ -49,6 +62,11 @@ public class Calculator {
 	private static void updateState() {
 		// TODO update state
 		
+	}
+
+	public static String getState() {
+
+		return Calculator.state.toString();
 	}
 
 }

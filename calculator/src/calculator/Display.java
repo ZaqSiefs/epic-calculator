@@ -291,6 +291,7 @@ public class Display extends JFrame implements ActionListener{
 			command.setLength(0);
 		}
 
-		System.out.println(command);
+		System.out.println("Command: " + command);
+		System.out.println("State:   " + Calculator.getState());
 	}
 }
