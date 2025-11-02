@@ -286,9 +286,26 @@ public class Display extends JFrame implements ActionListener{
 		else if (e.getSource() == bClose) {
 			command.append(")");
 		}
+		else if (e.getSource() == bDiv) {
+			command.append("/");
+		}
+		else if (e.getSource() == bTimes) {
+			command.append("*");
+		}
+		else if (e.getSource() == bMinus) {
+			command.append("-");
+		}
+		else if (e.getSource() == bPlus) {
+			command.append("/");
+		}
 		else if (e.getSource() == bEquals) {
 			Calculator.parse(command);
 			command.setLength(0);
+		}
+		else if (e.getSource() == bCe) {
+			command.setLength(0);
+			Calculator.parse(command);
+			
 		}
 
 		System.out.println("Command: " + command);

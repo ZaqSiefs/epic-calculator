@@ -10,6 +10,10 @@ public class Calculator {
 
 	public static void parse(StringBuilder command) {
 		// TODO parse the command
+		if (command.length() == 0) {
+			Calculator.setState(new BigDecimal("0"));
+			return;
+		}
 		
 		if (!validParentheses(command)) {
 			return;
