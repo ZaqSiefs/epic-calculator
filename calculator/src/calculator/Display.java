@@ -1,6 +1,7 @@
 package calculator;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -8,14 +9,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.border.Border;
 
 public class Display extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
@@ -62,9 +61,15 @@ public class Display extends JFrame implements ActionListener{
 	final JButton bEquals;
 	final JButton bPlus;
 	
+	final Font buttonFont = new Font("Aster", Font.PLAIN, 25);
+	
+	JLabel screen;
+	Border screenBorder;
+	
+	JPanel leftColumn;
 	JPanel centerColumn;
 	JPanel rightColumn;
-	
+	JPanel topRow;
 	
 	StringBuilder command = new StringBuilder();
 	
@@ -91,8 +96,9 @@ public class Display extends JFrame implements ActionListener{
 
         //=======================================================
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000, 500);
-		this.setLayout(new GridLayout(1, 2, 1, 1));
+		this.setPreferredSize(new Dimension(800, 700));
+		this.setLayout(null);
+		this.setResizable(false);
 		
 		//=======================================================
 		bRad 	= new JButton("Rad");
@@ -144,7 +150,6 @@ public class Display extends JFrame implements ActionListener{
 		bClose.addActionListener(this); 	
 		bPercent.addActionListener(this); 	
 		bCe.addActionListener(this); 	
-		
 		bInv.addActionListener(this); 	
 		bSin.addActionListener(this); 	
 		bLn.addActionListener(this);		
@@ -152,7 +157,6 @@ public class Display extends JFrame implements ActionListener{
 		b8.addActionListener(this);		
 		b9.addActionListener(this);		
 		bDiv.addActionListener(this);	
-		
 		bPi.addActionListener(this);		
 		bCos.addActionListener(this);	
 		bLog.addActionListener(this);	
@@ -160,7 +164,6 @@ public class Display extends JFrame implements ActionListener{
 		b5.addActionListener(this);		
 		b6.addActionListener(this);		
 		bTimes.addActionListener(this);	
-		
 		bE.addActionListener(this);		
 		bTan.addActionListener(this);	
 		bSqrt.addActionListener(this);	
@@ -168,7 +171,6 @@ public class Display extends JFrame implements ActionListener{
 		b2.addActionListener(this);		
 		b3.addActionListener(this);		
 		bMinus.addActionListener(this); 	
-		
 		bAns.addActionListener(this);	
 		bExp.addActionListener(this);	
 		bPwr.addActionListener(this);	
@@ -177,13 +179,45 @@ public class Display extends JFrame implements ActionListener{
 		bEquals.addActionListener(this); 
 		bPlus.addActionListener(this); 	
 		
+		bRad.setFont(buttonFont);
+		bDeg.setFont(buttonFont); 	
+		bFact.setFont(buttonFont); 	
+		bOpen.setFont(buttonFont); 	
+		bClose.setFont(buttonFont); 	
+		bPercent.setFont(buttonFont); 	
+		bCe.setFont(buttonFont); 	
+		bInv.setFont(buttonFont); 	
+		bSin.setFont(buttonFont); 	
+		bLn.setFont(buttonFont);		
+		b7.setFont(buttonFont);		
+		b8.setFont(buttonFont);		
+		b9.setFont(buttonFont);		
+		bDiv.setFont(buttonFont);	
+		bPi.setFont(buttonFont);		
+		bCos.setFont(buttonFont);	
+		bLog.setFont(buttonFont);	
+		b4.setFont(buttonFont);		
+		b5.setFont(buttonFont);		
+		b6.setFont(buttonFont);		
+		bTimes.setFont(buttonFont);	
+		bE.setFont(buttonFont);		
+		bTan.setFont(buttonFont);	
+		bSqrt.setFont(buttonFont);	
+		b1.setFont(buttonFont);		
+		b2.setFont(buttonFont);		
+		b3.setFont(buttonFont);		
+		bMinus.setFont(buttonFont); 	
+		bAns.setFont(buttonFont);	
+		bExp.setFont(buttonFont);	
+		bPwr.setFont(buttonFont);	
+		b0.setFont(buttonFont);		
+		bDot.setFont(buttonFont);	
+		bEquals.setFont(buttonFont); 
+		bPlus.setFont(buttonFont); 	
+		
 		//=======================================================
 		
-		centerColumn = new JPanel(new GridLayout(5, 3, 1, 1));
-		
-		centerColumn.add(bOpen); 	
-		centerColumn.add(bClose); 	
-		centerColumn.add(bPercent);
+		centerColumn = new JPanel(new GridLayout(4, 3, 1, 1));
 		
 		centerColumn.add(b7);		
 		centerColumn.add(b8);		
@@ -209,37 +243,63 @@ public class Display extends JFrame implements ActionListener{
 		rightColumn.add(bMinus); 
 		rightColumn.add(bPlus);	
 		
-//		this.add(bRad); 	
-//		this.add(bDeg); 	
-//		this.add(bFact); 	
- 	
+		topRow = new JPanel(new GridLayout(1, 3, 1, 1));
+		
+		topRow.add(bOpen); 	
+		topRow.add(bClose); 	
+		topRow.add(bPercent);
+		
+		leftColumn = new JPanel(new GridLayout(5, 3, 1, 1));
+		
+		leftColumn.add(bRad); 	
+		leftColumn.add(bDeg); 	
+		leftColumn.add(bFact); 	
+     
+		leftColumn.add(bInv); 	
+		leftColumn.add(bSin); 	
+		leftColumn.add(bLn);		
 
-//     
-//		this.add(bInv); 	
-//		this.add(bSin); 	
-//		this.add(bLn);		
-//
-//		this.add(bPi);		
-//		this.add(bCos);	
-//		this.add(bLog);	
-//  
-//		this.add(bE);		
-//		this.add(bTan);	
-//		this.add(bSqrt);		
-//    
-//		this.add(bAns);	
-//		this.add(bExp);	
-//		this.add(bPwr);	
-	
-
-
+		leftColumn.add(bPi);		
+		leftColumn.add(bCos);	
+		leftColumn.add(bLog);	
+        
+		leftColumn.add(bE);		
+		leftColumn.add(bTan);	
+		leftColumn.add(bSqrt);		
+        
+		leftColumn.add(bAns);	
+		leftColumn.add(bExp);	
+		leftColumn.add(bPwr);	
 		
 		//=======================================================
 		
+		screen = new JLabel("0", SwingConstants.RIGHT);
+
+		screen.setVerticalAlignment(SwingConstants.BOTTOM);
+		screen.setFont(new Font("Aster", Font.PLAIN, 100));
+		screen.setForeground(new Color(0xFFFFFF));
+		screen.setBackground(Color.BLACK);
+		screen.setOpaque(true);
+		screen.setBorder(screenBorder);
+		
+		//=======================================================
+		final int boundMult = 2;
+		
+		screen.setBounds(0, 0, 392 * boundMult, 80 * boundMult);
+		leftColumn.setBounds(0, 81 * boundMult, 170 * boundMult, 250 * boundMult);
+		topRow.setBounds(171 * boundMult, 81 * boundMult, 170 * boundMult, 50 * boundMult);
+		centerColumn.setBounds(171 * boundMult, 132 * boundMult, 170 * boundMult, 199 * boundMult);
+		rightColumn.setBounds(342 * boundMult, 81 * boundMult, 50 * boundMult, 250 * boundMult);
+		
+		this.add(screen);
+		this.add(leftColumn);
+		this.add(topRow);
 		this.add(centerColumn);
 		this.add(rightColumn);
+		this.pack();
 		
-		
+		//=======================================================
+
 		this.setVisible(true);
 	}
 	
@@ -296,19 +356,28 @@ public class Display extends JFrame implements ActionListener{
 			command.append("-");
 		}
 		else if (e.getSource() == bPlus) {
-			command.append("/");
+			command.append("+");
 		}
 		else if (e.getSource() == bEquals) {
 			Calculator.parse(command);
 			command.setLength(0);
+			screen.setText(Calculator.getState().toString());
+			screen.repaint();
+			return;
 		}
 		else if (e.getSource() == bCe) {
 			command.setLength(0);
 			Calculator.parse(command);
+			command.append("0");
 			
 		}
 
-		System.out.println("Command: " + command);
+		screen.setText(command.toString());
+		screen.repaint();
 		System.out.println("State:   " + Calculator.getState());
+	}
+	
+	private static void appendCommand(char c) {
+		
 	}
 }
