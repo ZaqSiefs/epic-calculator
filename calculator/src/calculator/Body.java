@@ -16,66 +16,61 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 
-public class Display extends JFrame implements ActionListener{
+public class Body extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
-	private static final int TOTAL_BUTTONS = 35;
 	
 	// Prefix "b" means "button"
-	final JButton bRad;
-	final JButton bDeg;
-	final JButton bFact;
-	final JButton bOpen;
-	final JButton bClose;
-	final JButton bPercent;
-	final JButton bCe;
-
-	final JButton bInv;
-	final JButton bSin;
-	final JButton bLn;
-	final JButton b7;
-	final JButton b8;
-	final JButton b9;
-	final JButton bDiv;
-
-	final JButton bPi;
-	final JButton bCos;
-	final JButton bLog;
-	final JButton b4;
-	final JButton b5;
-	final JButton b6;
-	final JButton bTimes;
-
-	final JButton bE;
-	final JButton bTan;
-	final JButton bSqrt;
-	final JButton b1;
-	final JButton b2;
-	final JButton b3;
-	final JButton bMinus;
-
-	final JButton bAns;
-	final JButton bExp;
-	final JButton bPwr;
-	final JButton b0;
-	final JButton bDot;
-	final JButton bEquals;
-	final JButton bPlus;
+	final private JButton bRad;
+	final private JButton bDeg;
+	final private JButton bFact;
+	final private JButton bOpen;
+	final private JButton bClose;
+	final private JButton bPercent;
+	final private JButton bCe;
+          
+	final private JButton bInv;
+	final private JButton bSin;
+	final private JButton bLn;
+	final private JButton b7;
+	final private JButton b8;
+	final private JButton b9;
+	final private JButton bDiv;
+          
+	final private JButton bPi;
+	final private JButton bCos;
+	final private JButton bLog;
+	final private JButton b4;
+	final private JButton b5;
+	final private JButton b6;
+	final private JButton bTimes;
+          
+	final private JButton bE;
+	final private JButton bTan;
+	final private JButton bSqrt;
+	final private JButton b1;
+	final private JButton b2;
+	final private JButton b3;
+	final private JButton bMinus;
+          
+	final private JButton bAns;
+	final private JButton bExp;
+	final private JButton bPwr;
+	final private JButton b0;
+	final private JButton bDot;
+	final private JButton bEquals;
+	final private JButton bPlus;
 	
-	final Font buttonFont = new Font("Aster", Font.PLAIN, 25);
+	final private Font buttonFont = new Font("Aster", Font.PLAIN, 25);
 	
-	JLabel screen;
-	Border screenBorder;
+	private JLabel screen;
+	private Border screenBorder;
 	
-	JPanel leftColumn;
-	JPanel centerColumn;
-	JPanel rightColumn;
-	JPanel topRow;
+	private JPanel leftColumn;
+	private JPanel centerColumn;
+	private JPanel rightColumn;
+	private JPanel topRow;
 	
-	StringBuilder command = new StringBuilder();
-	
-	
-	
-	Display() {
+	Body() {
 		
         // Here you can select the selected theme class name in JTatt
         try {
@@ -305,74 +300,8 @@ public class Display extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == b0) {
-			command.append("0");
-		}
-		else if (e.getSource() == b1) {
-			command.append("1");
-		}
-		else if (e.getSource() == b2) {
-			command.append("2");
-		}
-		else if (e.getSource() == b3) {
-			command.append("3");
-		}
-		else if (e.getSource() == b4) {
-			command.append("4");
-		}
-		else if (e.getSource() == b5) {
-			command.append("5");
-		}
-		else if (e.getSource() == b6) {
-			command.append("6");
-		}
-		else if (e.getSource() == b7) {
-			command.append("7");
-		}
-		else if (e.getSource() == b8) {
-			command.append("8");
-		}
-		else if (e.getSource() == b9) {
-			command.append("9");
-		}
-		else if (e.getSource() == bDot) {
-			if (!command.toString().contains(".")) {
-				command.append(".");
-			}
-		}
-		else if (e.getSource() == bOpen) {
-			command.append("(");
-		}
-		else if (e.getSource() == bClose) {
-			command.append(")");
-		}
-		else if (e.getSource() == bDiv) {
-			command.append("/");
-		}
-		else if (e.getSource() == bTimes) {
-			command.append("*");
-		}
-		else if (e.getSource() == bMinus) {
-			command.append("-");
-		}
-		else if (e.getSource() == bPlus) {
-			command.append("+");
-		}
-		else if (e.getSource() == bEquals) {
-			Calculator.parse(command);
-			command.setLength(0);
-			screen.setText(Calculator.getState().toString());
-			screen.repaint();
-			return;
-		}
-		else if (e.getSource() == bCe) {
-			command.setLength(0);
-			Calculator.parse(command);
-			command.append("0");
-			
-		}
-
-		screen.setText(command.toString());
+		// TODO figure out how to pass e into Calculator.updateCommand then start implementing calculator logic.
+		
 		screen.repaint();
 		System.out.println("State:   " + Calculator.getState());
 	}

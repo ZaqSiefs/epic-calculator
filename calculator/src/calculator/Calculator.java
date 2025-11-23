@@ -5,8 +5,13 @@ import java.util.Stack;
 
 public class Calculator {
 	private static BigDecimal state = new BigDecimal("0");
+	private static StringBuilder command = new StringBuilder();
 	
 	Calculator() {}
+	
+	public static void updateCommand() {
+		
+	}
 
 	public static void parse(StringBuilder command) {
 		// TODO parse the command
