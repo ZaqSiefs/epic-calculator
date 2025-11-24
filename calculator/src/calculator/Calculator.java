@@ -84,7 +84,7 @@ public final class Calculator implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO figure out how to pass e into Calculator.updateCommand then start implementing calculator logic.
 		
-		Body.getScreen().repaint();
+		Display.getScreen().repaint();
 		System.out.println("State:   " + Calculator.getState());
 	}
 

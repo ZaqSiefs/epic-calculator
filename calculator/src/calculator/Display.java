@@ -12,12 +12,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public final class Body extends JFrame{
-	private static final Calculator calculator = new Calculator();;
+public final class Display extends JFrame{
+	/**
+	 * This really doesn't matter for this project
+	 */
 	private static final long serialVersionUID = 1L;
-	// Here you can select the selected theme class name in JTatt
+
+	/**
+	 * Associated Calculator object for this display
+	 */
+	private static final Calculator calculator = new Calculator();;
 	
-	// Prefix "B" means "button"
+	/**
+	 * Buttons for the calculator.
+	 * "B" prefix stands for "Button" and helps me find the buttons in auto-fill.
+	 */
 	final private static JButton B_RAD     = new JButton("Rad");
 	final private static JButton B_DEG     = new JButton("Deg");
 	final private static JButton B_FACT    = new JButton("x!");
@@ -58,6 +67,12 @@ public final class Body extends JFrame{
 	final private static JButton B_EQ  	   = new JButton("=");
 	final private static JButton B_PLUS    = new JButton("+");
 	
+	/**
+	 * Lists of buttons for easier data access.
+	 * LEFT_BUTTONS holds all buttons in the left display column, from left-right, top-down.
+	 * CENTER_BUTTONS holds all buttons in the center display column, from left-right, top-down.
+	 * RIGHT_BUTTONS holds all buttons in the right display column, from left-right, top-down.
+	 */
 	final private static List<JButton> LEFT_BUTTONS = List.of(
 			B_RAD, B_DEG, B_FACT, B_INV, B_SIN, B_LN, B_PI, 
 			B_COS, B_LOG, B_E, B_TAN, B_SQRT, B_ANS, B_EXP, B_PWR
@@ -76,16 +91,28 @@ public final class Body extends JFrame{
 			LEFT_BUTTONS, CENTER_BUTTONS, RIGHT_BUTTONS
 		);
 	
-	final private static Font buttonFont = new Font("Aster", Font.PLAIN, 25);
-	
+	/**
+	 * Divisions of the JFrame for the Display.
+	 * SCREEN is where the visual feedback about the state of the calculator will be located
+	 * LEFT_COLUMN is where all of the LEFT_BUTTONS will be located
+	 * CENTER_COLUMN is where all of the CENTER_BUTTONS will be located
+	 * RIGHT_COLUMN is where all of the RIGHT_BUTTONS will be located
+	 */
 	final private static JLabel SCREEN = new JLabel("0", SwingConstants.RIGHT);
+	final private static JPanel LEFT_COLUMN = new JPanel(new GridLayout(5, 3, 1, 1));
 	final private static JPanel CENTER_COLUMN = new JPanel(new GridLayout(5, 3, 1, 1));
 	final private static JPanel RIGHT_COLUMN = new JPanel(new GridLayout(5, 1, 1, 1));                                                                             
-	final private static JPanel LEFT_COLUMN = new JPanel(new GridLayout(5, 3, 1, 1));
 	
-	// T = top, L = left, R = right, B = bottom
-	// B = border
-	// Eg. TB = Top Border
+	
+	/**
+	 * Border coordinates for the JFrame Display components. Yes I know the naming could be more clear. Deal with it
+	 * SCALE_DISPLAY scales each component to make resizing easier. 
+	 * 
+	 * ABBREVIATIONS:
+	 * T = top, L = left, R = right, B = bottom
+	 * B = border                              
+	 * Eg. TB = Top Border                     
+	 */
 	final private static int SCALE_DISPLAY = 2;
 
 	final private static int SCREEN_LB = SCALE_DISPLAY * 0;
@@ -108,8 +135,15 @@ public final class Body extends JFrame{
 	final private static int RIGHT_RB = SCALE_DISPLAY * 50;
 	final private static int RIGHT_BB = SCALE_DISPLAY * 250;
 	
-	Body() {
+	/**
+	 * Font.  What else did you think it was?
+	 */
+	final private static Font FONT = new Font("Aster", Font.PLAIN, 25);
+	
+	Display() {
         //=======================================================
+		// Set the JFrame attributes
+		//=======================================================
         
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(800, 700));
@@ -118,15 +152,29 @@ public final class Body extends JFrame{
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		
 		//=======================================================
+		// set screen attributes
+		//=======================================================
+
+		SCREEN.setVerticalAlignment(SwingConstants.BOTTOM);
+		SCREEN.setFont(new Font("Aster", Font.PLAIN, 100));
+		SCREEN.setForeground(new Color(0xFFFFFF));
+		SCREEN.setBackground(Color.BLACK);
+		SCREEN.setOpaque(true);
+		
+		//=======================================================
+		// Set the button attributes
+		//=======================================================
 		
 		for (List<JButton> buttons : BUTTONS) {
 			for (JButton button : buttons) {
-				button.addActionListener(Body.calculator);
-				button.setFont(Body.buttonFont);
+				button.addActionListener(Display.calculator);
+				button.setFont(Display.FONT);
 				button.setFocusPainted(false);
 			}
 		}
 		
+		//=======================================================
+		// Add JButtons to the JFrame divisions
 		//=======================================================
 		
 		for (JButton button : CENTER_BUTTONS) {
@@ -141,14 +189,9 @@ public final class Body extends JFrame{
 			LEFT_COLUMN.add(button);
 		}
 		
-		//=======================================================
-
-		SCREEN.setVerticalAlignment(SwingConstants.BOTTOM);
-		SCREEN.setFont(new Font("Aster", Font.PLAIN, 100));
-		SCREEN.setForeground(new Color(0xFFFFFF));
-		SCREEN.setBackground(Color.BLACK);
-		SCREEN.setOpaque(true);
 		
+		//=======================================================
+		// Set bounds for the JFrame divisions
 		//=======================================================
 		
 		SCREEN.setBounds(SCREEN_LB, SCREEN_TB, SCREEN_RB, SCREEN_BB);
@@ -156,6 +199,9 @@ public final class Body extends JFrame{
 		CENTER_COLUMN.setBounds(CENT_LB, CENT_TB, CENT_RB, CENT_BB);
 		RIGHT_COLUMN.setBounds(RIGHT_LB, RIGHT_TB, RIGHT_RB, RIGHT_BB);
 		
+		//=======================================================
+		// Add all elements to the JFrame
+		//=======================================================
 		this.add(SCREEN);
 		this.add(LEFT_COLUMN);
 		this.add(CENTER_COLUMN);
@@ -163,11 +209,17 @@ public final class Body extends JFrame{
 		this.pack();
 		
 		//=======================================================
+		// Make is all appear, baby
+		//=======================================================
 
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Getter for SCREEN
+	 * @return SCREEN object
+	 */
 	public static JLabel getScreen() {
-		return Body.SCREEN;
+		return Display.SCREEN;
 	}
 }
