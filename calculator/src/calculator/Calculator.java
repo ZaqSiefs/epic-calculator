@@ -1,9 +1,11 @@
 package calculator;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.Stack;
 
-public class Calculator {
+public final class Calculator implements ActionListener{
 	private static BigDecimal state = new BigDecimal("0");
 	private static StringBuilder command = new StringBuilder();
 	
@@ -76,6 +78,14 @@ public class Calculator {
 	public static String getState() {
 
 		return Calculator.state.toString();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO figure out how to pass e into Calculator.updateCommand then start implementing calculator logic.
+		
+		Body.getScreen().repaint();
+		System.out.println("State:   " + Calculator.getState());
 	}
 
 }

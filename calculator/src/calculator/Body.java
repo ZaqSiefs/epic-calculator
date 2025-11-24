@@ -4,293 +4,162 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
 
-public class Body extends JFrame implements ActionListener{
+public final class Body extends JFrame{
+	private static final Calculator calculator = new Calculator();;
 	private static final long serialVersionUID = 1L;
+	// Here you can select the selected theme class name in JTatt
 	
-	// Prefix "b" means "button"
-	final private JButton bRad;
-	final private JButton bDeg;
-	final private JButton bFact;
-	final private JButton bOpen;
-	final private JButton bClose;
-	final private JButton bPercent;
-	final private JButton bCe;
-          
-	final private JButton bInv;
-	final private JButton bSin;
-	final private JButton bLn;
-	final private JButton b7;
-	final private JButton b8;
-	final private JButton b9;
-	final private JButton bDiv;
-          
-	final private JButton bPi;
-	final private JButton bCos;
-	final private JButton bLog;
-	final private JButton b4;
-	final private JButton b5;
-	final private JButton b6;
-	final private JButton bTimes;
-          
-	final private JButton bE;
-	final private JButton bTan;
-	final private JButton bSqrt;
-	final private JButton b1;
-	final private JButton b2;
-	final private JButton b3;
-	final private JButton bMinus;
-          
-	final private JButton bAns;
-	final private JButton bExp;
-	final private JButton bPwr;
-	final private JButton b0;
-	final private JButton bDot;
-	final private JButton bEquals;
-	final private JButton bPlus;
+	// Prefix "B" means "button"
+	final private static JButton B_RAD     = new JButton("Rad");
+	final private static JButton B_DEG     = new JButton("Deg");
+	final private static JButton B_FACT    = new JButton("x!");
+	final private static JButton B_OPEN    = new JButton("(");
+	final private static JButton B_CLOSE   = new JButton(")");
+	final private static JButton B_PERCENT = new JButton("%");
+	final private static JButton B_CE      = new JButton("CE");
+                                                             
+	final private static JButton B_INV     = new JButton("Inv");
+	final private static JButton B_SIN     = new JButton("sin");
+	final private static JButton B_LN      = new JButton("ln");
+	final private static JButton B_7       = new JButton("7");
+	final private static JButton B_8       = new JButton("8");
+	final private static JButton B_9       = new JButton("9");
+	final private static JButton B_DIV     = new JButton("/");
+                                                             
+	final private static JButton B_PI      = new JButton("pi");
+	final private static JButton B_COS     = new JButton("cos");
+	final private static JButton B_LOG     = new JButton("log");
+	final private static JButton B_4       = new JButton("4");
+	final private static JButton B_5       = new JButton("5");
+	final private static JButton B_6       = new JButton("6");
+	final private static JButton B_TIMES   = new JButton("x");
+                                                             
+	final private static JButton B_E       = new JButton("e");
+	final private static JButton B_TAN     = new JButton("tan");
+	final private static JButton B_SQRT    = new JButton("sqrt");
+	final private static JButton B_1       = new JButton("1");
+	final private static JButton B_2       = new JButton("2");
+	final private static JButton B_3       = new JButton("3");
+	final private static JButton B_MINUS   = new JButton("-");
+                                                             
+	final private static JButton B_ANS     = new JButton("Ans");
+	final private static JButton B_EXP     = new JButton("EXP");
+	final private static JButton B_PWR     = new JButton("pwr");
+	final private static JButton B_0       = new JButton("0");
+	final private static JButton B_DOT     = new JButton(".");
+	final private static JButton B_EQ  	   = new JButton("=");
+	final private static JButton B_PLUS    = new JButton("+");
 	
-	final private Font buttonFont = new Font("Aster", Font.PLAIN, 25);
+	final private static List<JButton> LEFT_BUTTONS = List.of(
+			B_RAD, B_DEG, B_FACT, B_INV, B_SIN, B_LN, B_PI, 
+			B_COS, B_LOG, B_E, B_TAN, B_SQRT, B_ANS, B_EXP, B_PWR
+		);
 	
-	private JLabel screen;
-	private Border screenBorder;
+	final private static List<JButton> CENTER_BUTTONS = List.of(
+			B_OPEN, B_CLOSE, B_PERCENT, B_7, B_8, B_9, B_4, 
+			B_5, B_6, B_1, B_2, B_3, B_0, B_DOT, B_EQ
+		);
 	
-	private JPanel leftColumn;
-	private JPanel centerColumn;
-	private JPanel rightColumn;
-	private JPanel topRow;
+	final private static List<JButton> RIGHT_BUTTONS = List.of(
+			B_CE, B_DIV, B_TIMES, B_MINUS, B_PLUS
+		);
+	
+	final private static List<List<JButton>> BUTTONS = List.of(
+			LEFT_BUTTONS, CENTER_BUTTONS, RIGHT_BUTTONS
+		);
+	
+	final private static Font buttonFont = new Font("Aster", Font.PLAIN, 25);
+	
+	final private static JLabel SCREEN = new JLabel("0", SwingConstants.RIGHT);
+	final private static JPanel CENTER_COLUMN = new JPanel(new GridLayout(5, 3, 1, 1));
+	final private static JPanel RIGHT_COLUMN = new JPanel(new GridLayout(5, 1, 1, 1));                                                                             
+	final private static JPanel LEFT_COLUMN = new JPanel(new GridLayout(5, 3, 1, 1));
+	
+	// T = top, L = left, R = right, B = bottom
+	// B = border
+	// Eg. TB = Top Border
+	final private static int SCALE_DISPLAY = 2;
+
+	final private static int SCREEN_LB = SCALE_DISPLAY * 0;
+	final private static int SCREEN_TB = SCALE_DISPLAY * 0;
+	final private static int SCREEN_RB = SCALE_DISPLAY * 392; 
+	final private static int SCREEN_BB = SCALE_DISPLAY * 80;
+
+	final private static int LEFT_LB = SCALE_DISPLAY * 0;
+	final private static int LEFT_TB = SCALE_DISPLAY * 81;
+	final private static int LEFT_RB = SCALE_DISPLAY * 170;
+	final private static int LEFT_BB = SCALE_DISPLAY * 250;
+	       
+	final private static int CENT_LB = SCALE_DISPLAY * 171;
+	final private static int CENT_TB = SCALE_DISPLAY * 81;
+	final private static int CENT_RB = SCALE_DISPLAY * 170;
+	final private static int CENT_BB = SCALE_DISPLAY * 250;
+	 
+	final private static int RIGHT_LB = SCALE_DISPLAY * 342;
+	final private static int RIGHT_TB = SCALE_DISPLAY * 81;
+	final private static int RIGHT_RB = SCALE_DISPLAY * 50;
+	final private static int RIGHT_BB = SCALE_DISPLAY * 250;
 	
 	Body() {
-		
-        // Here you can select the selected theme class name in JTatt
-        try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
         //=======================================================
+        
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(800, 700));
 		this.setLayout(null);
 		this.setResizable(false);
-		
-		//=======================================================
-		bRad 	= new JButton("Rad");
-		bDeg 	= new JButton("Deg");
-		bFact 	= new JButton("x!");
-		bOpen 	= new JButton("(");
-		bClose 	= new JButton(")");
-		bPercent= new JButton("%");
-		bCe 	= new JButton("CE");
-		
-		bInv 	= new JButton("Inv");
-		bSin 	= new JButton("sin");
-		bLn		= new JButton("ln");
-		b7		= new JButton("7");
-		b8		= new JButton("8");
-		b9		= new JButton("9");
-		bDiv	= new JButton("/");
-		
-		bPi		= new JButton("pi");
-		bCos	= new JButton("cos");
-		bLog	= new JButton("log");
-		b4		= new JButton("4");
-		b5		= new JButton("5");
-		b6		= new JButton("6");
-		bTimes	= new JButton("x");
-		
-		bE		= new JButton("e");
-		bTan	= new JButton("tan");
-		bSqrt	= new JButton("sqrt");
-		b1		= new JButton("1");
-		b2		= new JButton("2");
-		b3		= new JButton("3");
-		bMinus 	= new JButton("-");
-		
-		bAns	= new JButton("Ans");
-		bExp	= new JButton("EXP");
-		bPwr	= new JButton("pwr");
-		b0		= new JButton("0");
-		bDot	= new JButton(".");
-		bEquals = new JButton("=");
-		bPlus 	= new JButton("+");
+		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		
 		//=======================================================
 		
-		bRad.addActionListener(this);
-		bDeg.addActionListener(this); 	
-		bFact.addActionListener(this); 	
-		bOpen.addActionListener(this); 	
-		bClose.addActionListener(this); 	
-		bPercent.addActionListener(this); 	
-		bCe.addActionListener(this); 	
-		bInv.addActionListener(this); 	
-		bSin.addActionListener(this); 	
-		bLn.addActionListener(this);		
-		b7.addActionListener(this);		
-		b8.addActionListener(this);		
-		b9.addActionListener(this);		
-		bDiv.addActionListener(this);	
-		bPi.addActionListener(this);		
-		bCos.addActionListener(this);	
-		bLog.addActionListener(this);	
-		b4.addActionListener(this);		
-		b5.addActionListener(this);		
-		b6.addActionListener(this);		
-		bTimes.addActionListener(this);	
-		bE.addActionListener(this);		
-		bTan.addActionListener(this);	
-		bSqrt.addActionListener(this);	
-		b1.addActionListener(this);		
-		b2.addActionListener(this);		
-		b3.addActionListener(this);		
-		bMinus.addActionListener(this); 	
-		bAns.addActionListener(this);	
-		bExp.addActionListener(this);	
-		bPwr.addActionListener(this);	
-		b0.addActionListener(this);		
-		bDot.addActionListener(this);	
-		bEquals.addActionListener(this); 
-		bPlus.addActionListener(this); 	
-		
-		bRad.setFont(buttonFont);
-		bDeg.setFont(buttonFont); 	
-		bFact.setFont(buttonFont); 	
-		bOpen.setFont(buttonFont); 	
-		bClose.setFont(buttonFont); 	
-		bPercent.setFont(buttonFont); 	
-		bCe.setFont(buttonFont); 	
-		bInv.setFont(buttonFont); 	
-		bSin.setFont(buttonFont); 	
-		bLn.setFont(buttonFont);		
-		b7.setFont(buttonFont);		
-		b8.setFont(buttonFont);		
-		b9.setFont(buttonFont);		
-		bDiv.setFont(buttonFont);	
-		bPi.setFont(buttonFont);		
-		bCos.setFont(buttonFont);	
-		bLog.setFont(buttonFont);	
-		b4.setFont(buttonFont);		
-		b5.setFont(buttonFont);		
-		b6.setFont(buttonFont);		
-		bTimes.setFont(buttonFont);	
-		bE.setFont(buttonFont);		
-		bTan.setFont(buttonFont);	
-		bSqrt.setFont(buttonFont);	
-		b1.setFont(buttonFont);		
-		b2.setFont(buttonFont);		
-		b3.setFont(buttonFont);		
-		bMinus.setFont(buttonFont); 	
-		bAns.setFont(buttonFont);	
-		bExp.setFont(buttonFont);	
-		bPwr.setFont(buttonFont);	
-		b0.setFont(buttonFont);		
-		bDot.setFont(buttonFont);	
-		bEquals.setFont(buttonFont); 
-		bPlus.setFont(buttonFont); 	
+		for (List<JButton> buttons : BUTTONS) {
+			for (JButton button : buttons) {
+				button.addActionListener(Body.calculator);
+				button.setFont(Body.buttonFont);
+				button.setFocusPainted(false);
+			}
+		}
 		
 		//=======================================================
 		
-		centerColumn = new JPanel(new GridLayout(4, 3, 1, 1));
+		for (JButton button : CENTER_BUTTONS) {
+			CENTER_COLUMN.add(button);
+		}
 		
-		centerColumn.add(b7);		
-		centerColumn.add(b8);		
-		centerColumn.add(b9);	
+		for (JButton button : RIGHT_BUTTONS) {
+			RIGHT_COLUMN.add(button);
+		}
 		
-		centerColumn.add(b4);		
-		centerColumn.add(b5);		
-		centerColumn.add(b6);		
+		for (JButton button : LEFT_BUTTONS) {
+			LEFT_COLUMN.add(button);
+		}
 		
-		centerColumn.add(b1);		
-		centerColumn.add(b2);		
-		centerColumn.add(b3);	
-		
-		centerColumn.add(b0);	
-		centerColumn.add(bDot);	
-		centerColumn.add(bEquals);
-		
-		rightColumn = new JPanel(new GridLayout(5, 1, 1, 1));
-		
-		rightColumn.add(bCe); 	
-		rightColumn.add(bDiv);
-		rightColumn.add(bTimes);	
-		rightColumn.add(bMinus); 
-		rightColumn.add(bPlus);	
-		
-		topRow = new JPanel(new GridLayout(1, 3, 1, 1));
-		
-		topRow.add(bOpen); 	
-		topRow.add(bClose); 	
-		topRow.add(bPercent);
-		
-		leftColumn = new JPanel(new GridLayout(5, 3, 1, 1));
-		
-		leftColumn.add(bRad); 	
-		leftColumn.add(bDeg); 	
-		leftColumn.add(bFact); 	
-     
-		leftColumn.add(bInv); 	
-		leftColumn.add(bSin); 	
-		leftColumn.add(bLn);		
+		//=======================================================
 
-		leftColumn.add(bPi);		
-		leftColumn.add(bCos);	
-		leftColumn.add(bLog);	
-        
-		leftColumn.add(bE);		
-		leftColumn.add(bTan);	
-		leftColumn.add(bSqrt);		
-        
-		leftColumn.add(bAns);	
-		leftColumn.add(bExp);	
-		leftColumn.add(bPwr);	
+		SCREEN.setVerticalAlignment(SwingConstants.BOTTOM);
+		SCREEN.setFont(new Font("Aster", Font.PLAIN, 100));
+		SCREEN.setForeground(new Color(0xFFFFFF));
+		SCREEN.setBackground(Color.BLACK);
+		SCREEN.setOpaque(true);
 		
 		//=======================================================
 		
-		screen = new JLabel("0", SwingConstants.RIGHT);
-
-		screen.setVerticalAlignment(SwingConstants.BOTTOM);
-		screen.setFont(new Font("Aster", Font.PLAIN, 100));
-		screen.setForeground(new Color(0xFFFFFF));
-		screen.setBackground(Color.BLACK);
-		screen.setOpaque(true);
-		screen.setBorder(screenBorder);
+		SCREEN.setBounds(SCREEN_LB, SCREEN_TB, SCREEN_RB, SCREEN_BB);
+		LEFT_COLUMN.setBounds(LEFT_LB, LEFT_TB, LEFT_RB, LEFT_BB);
+		CENTER_COLUMN.setBounds(CENT_LB, CENT_TB, CENT_RB, CENT_BB);
+		RIGHT_COLUMN.setBounds(RIGHT_LB, RIGHT_TB, RIGHT_RB, RIGHT_BB);
 		
-		//=======================================================
-		final int boundMult = 2;
-		
-		screen.setBounds(0, 0, 392 * boundMult, 80 * boundMult);
-		leftColumn.setBounds(0, 81 * boundMult, 170 * boundMult, 250 * boundMult);
-		topRow.setBounds(171 * boundMult, 81 * boundMult, 170 * boundMult, 50 * boundMult);
-		centerColumn.setBounds(171 * boundMult, 132 * boundMult, 170 * boundMult, 199 * boundMult);
-		rightColumn.setBounds(342 * boundMult, 81 * boundMult, 50 * boundMult, 250 * boundMult);
-		
-		this.add(screen);
-		this.add(leftColumn);
-		this.add(topRow);
-		this.add(centerColumn);
-		this.add(rightColumn);
+		this.add(SCREEN);
+		this.add(LEFT_COLUMN);
+		this.add(CENTER_COLUMN);
+		this.add(RIGHT_COLUMN);
 		this.pack();
 		
 		//=======================================================
@@ -298,15 +167,7 @@ public class Body extends JFrame implements ActionListener{
 		this.setVisible(true);
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO figure out how to pass e into Calculator.updateCommand then start implementing calculator logic.
-		
-		screen.repaint();
-		System.out.println("State:   " + Calculator.getState());
-	}
-	
-	private static void appendCommand(char c) {
-		
+	public static JLabel getScreen() {
+		return Body.SCREEN;
 	}
 }
