@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.Stack;
 
+import javax.swing.JButton;
+
 public final class Calculator implements ActionListener{
 	private static BigDecimal state = new BigDecimal("0");
 	private static StringBuilder command = new StringBuilder();
@@ -76,13 +78,15 @@ public final class Calculator implements ActionListener{
 	}
 
 	public static String getState() {
-
 		return Calculator.state.toString();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO figure out how to pass e into Calculator.updateCommand then start implementing calculator logic.
+		String buttonID = ((JButton) e.getSource()).getText().toUpperCase();
+		
+		System.out.println(buttonID);
 		
 		Display.getScreen().repaint();
 		System.out.println("State:   " + Calculator.getState());
