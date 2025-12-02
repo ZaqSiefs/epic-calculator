@@ -222,4 +222,9 @@ public final class Display extends JFrame{
 	public static JLabel getScreen() {
 		return Display.SCREEN;
 	}
+	
+	public static void setScreen(String content) {
+		SCREEN.setText(content);
+		SCREEN.repaint();
+	}
 }
