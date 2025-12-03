@@ -134,9 +134,7 @@ public final class Calculator implements ActionListener{
 			break;
 					
 		case ")":
-			
-			if (closingParenthesesPressed < openingParenthesesPressed)
-				incrementClosingParentheses(index);
+			incrementClosingParentheses(index);
 			break;
 			
 		case "+":
@@ -207,7 +205,7 @@ public final class Calculator implements ActionListener{
 
 	private static void placeParentheses(String buttonID, int index) {
 		// Param buttonID is unused, but I liked the consistency with the other methods
-		if (COMMAND.charAt(0) == '0') 
+		if (COMMAND.length() == 1 && COMMAND.charAt(0) == '0') 
 			COMMAND.replace(0, 1, "()");
 		else
 			COMMAND.insert(index, "()");
@@ -216,25 +214,35 @@ public final class Calculator implements ActionListener{
 	}
 	
 	private static void placeDigit(String buttonID, int index) {
-		if (COMMAND.charAt(0) == '0')
+		if (COMMAND.length() == 1 && COMMAND.charAt(0) == '0')
 			COMMAND.replace(0, 1, buttonID);
 		else {
-			if (COMMAND.length() > 1 && COMMAND.charAt(index - 1) == ')')
+			if (index > 0 && COMMAND.charAt(index - 1) == ')')
 				buttonID = "x" + buttonID;
 			COMMAND.insert(index, buttonID);
 		}
 	}
 	
 	private static void placeOperand(String buttonID, int index) {
-		// This is broken
-		char target = COMMAND.charAt(index);
+		char previousChar = COMMAND.charAt(index - 1);
 		
-		if (target == '+' ||  target == 'x' ||  target == '/') {
-			COMMAND.replace(index + 1,  index + 1, buttonID);
+		if (!buttonID.equals("-") && (previousChar == '-' || previousChar == '('))
 			return;
-		}
 		
-		COMMAND.insert(index + 1, (buttonID));
+		if (buttonID.equals("-")) {
+			if (previousChar == '-')
+				COMMAND.replace(index - 1, index, buttonID);
+			else
+				COMMAND.insert(index, buttonID);
+		}
+		else if (previousChar == '+' ||
+				 previousChar == 'x' ||
+				 previousChar == '/') {
+			COMMAND.replace(index - 1, index, buttonID);
+		}
+		else {
+			COMMAND.insert(index,  buttonID);
+		}
 	}
 	
 	private static int getIndex() {
@@ -252,7 +260,10 @@ public final class Calculator implements ActionListener{
 	}
 	
 	private static void incrementClosingParentheses(int index) {
-		if (COMMAND.charAt(index - 1) == '(')
+		// TODO: implement HTML formatting to inform the user if the parentheses have been closed.
+		if (closingParenthesesPressed < openingParenthesesPressed 
+			&& COMMAND.charAt(index - 1) == '('
+			)
 			return;
 		closingParenthesesPressed++;
 	}
